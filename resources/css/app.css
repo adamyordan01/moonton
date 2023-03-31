@@ -1,3 +1,53 @@
+@import "input.css";
+@import "button.css";
+@import "sidebar.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Deklarasi CSS lainnya dimulai di sini */
+
+.flex::before,
+.flex::after {
+    display: none !important;
+}
+
+@layer components {
+    [type="text"],
+    [type="email"],
+    [type="password"],
+    [type="tel"],
+    [type="number"],
+    [type="url"],
+    [type="search"],
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="week"],
+    [type="time"],
+    [multiple],
+    textarea,
+    select {
+        border-color: transparent;
+    }
+
+    /* when focus */
+    [type="text"]:focus,
+    [type="email"]:focus,
+    [type="password"]:focus,
+    [type="tel"]:focus,
+    [type="number"]:focus,
+    [type="url"]:focus,
+    [type="search"]:focus,
+    [type="date"]:focus,
+    [type="datetime-local"]:focus,
+    [type="month"]:focus,
+    [type="week"]:focus,
+    [type="time"]:focus,
+    [multiple]:focus,
+    textarea:focus,
+    select:focus {
+        border-color: transparent;
+        --tw-ring-color: transparent;
+    }
+}
