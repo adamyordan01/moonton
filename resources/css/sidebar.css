@@ -1,0 +1,100 @@
+@tailwind components;
+@tailwind utilities;
+
+
+/* make style for scrollbar-thin, scrollbar-gray-500, scrollbar-track-gray-200*/
+@layer utilities{
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 14px;
+    }
+    .scrollbar-track {
+        background-color: rgba(155, 155, 155, 0.1);
+    }
+    .scrollbar-thumb {
+        background-color: rgba(155, 155, 155, 0.5);
+        border-radius: 6px;
+    }
+    .scrollbar-gray-500::-webkit-scrollbar-thumb {
+        background-color: #6b7280;
+        border-radius: 20px;
+        border: 3px solid #f3f4f6;
+    }
+    .scrollbar-track-gray-200::-webkit-scrollbar-track {
+        background-color: #f3f4f6;
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        background-color: #f5f5f5;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: #333;
+        border-radius: 8px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+      }
+      
+      ::-webkit-scrollbar-thumb:active {
+        background-color: #777;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background-color: #f5f5f5;
+      }
+      
+      ::-webkit-scrollbar-track-piece {
+        background-color: #f5f5f5;
+        opacity: 0.8;
+      }
+      
+      ::-webkit-scrollbar-track-piece:hover {
+        opacity: 1;
+      }
+}
+
+@layer components{
+    .side-link{
+        @apply flex items-center font-normal text-black text-sm w-full mb-5 gap-3 transition-all;
+    }
+
+    .side-link svg{
+        @apply text-[#B7B7B7];
+    }
+    .side-link.active{
+        @apply font-semibold border-r-[3px] border-alerange;
+    }
+
+    .side-link.active svg{
+        @apply text-alerange;
+    }
+
+    input.top-search{
+        @apply rounded-full border border-gray-2 placeholder:text-gray-1 text-base text-gray-1 px-5 py-[11px]
+        w-full max-w-[570px] focus:outline-none focus:ring-2 transition-all bg-no-repeat bg-center
+        bg-[center_right_20px];
+    }
+
+
+    /* style untuk scrollbar */
+    ::-webkit-scrollbar {
+        @apply w-8;
+    }
+  
+    /* warna untuk scrollbar */
+    ::-webkit-scrollbar-thumb {
+        @apply bg-gray-500;
+    }
+  
+    /* warna untuk bagian kosong pada scrollbar */
+    ::-webkit-scrollbar-track {
+        @apply bg-gray-200;
+    }
+  
+    /* ukuran width scrollbar */
+    .overflow-y-auto {
+        @apply scrollbar-thin scrollbar-gray-500 scrollbar-track-gray-200;
+    }
+}
