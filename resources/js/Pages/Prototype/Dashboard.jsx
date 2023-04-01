@@ -2,9 +2,11 @@ import FeaturedMovie from "@/Components/Moonton/FeaturedMovie";
 import MovieCard from "@/Components/Moonton/MovieCard";
 import Authenticated from "@/Layouts/Authenticated/Index";
 import { Head } from "@inertiajs/react";
+import { useEffect, useRef } from "react";
 import Flickity from "react-flickity-component";
 
 export default function Dashboard() {
+    const flickityRef = useRef(null);
     const flickityOptions = {
         "cellAlign": "left",
         "contain": true,
@@ -14,6 +16,16 @@ export default function Dashboard() {
         "prevNextButtons": false,
         "draggable": ">1"
     }
+
+    useEffect(() => {
+        // wait for the component to mount and for the element to load before initializing Flickity
+        if (flickityRef.current) {
+            flickityRef.current.on('ready', function () {
+                console.log('Flickity is ready');
+            });
+        }
+    }, [flickityRef])
+
     return (
         <Authenticated>
             <Head>
@@ -21,11 +33,19 @@ export default function Dashboard() {
             </Head>
             <div>
                 <div className="font-semibold text-[22px] text-black mb-4">Featured Movies</div>
-                <Flickity className="gap-[30px]" options={flickityOptions}>
+                <Flickity
+                    className="gap-[30px]"
+                    options={flickityOptions}
+                    elementType="div"
+                    disableImagesLoaded={false}
+                    reloadOnUpdate
+                    static
+                    flickityRef={(c) => flickityRef.current = c}
+                >
                     {Array(10).fill().map((_, i) => {
                         return (
                             <FeaturedMovie key={i} 
-                                slug="/watching-the-bat-man-in-love"
+                                slug="watching-the-bat-man-in-love"
                                 name="The Batman in Love"
                                 category="Action • Love"
                                 thumbnail="/images/featured-1.png"
@@ -37,7 +57,13 @@ export default function Dashboard() {
             </div>
             <div>
                 <div className="font-semibold text-[22px] text-black mt-5 mb-4">Browse</div>
-                <Flickity className="__scroll-selector" options={flickityOptions}>
+                <Flickity className="__scroll-selector" options={flickityOptions}
+                    elementType="div"
+                    disableImagesLoaded={false}
+                    reloadOnUpdate
+                    static
+                    flickityRef={(c) => flickityRef.current = c}
+                >
                     {Array(10).fill().map((_, i) => {
                         return (
                             <MovieCard
@@ -45,45 +71,12 @@ export default function Dashboard() {
                                 name={`Movie ${i}`}
                                 category="Action • Love"
                                 thumbnail="/images/browse-1.png"
-                                slug={`/watching-movie-${i}`}
+                                slug={`watching-movie-${i}`}
                             />
                         )
                     })}
                 </Flickity>
             </div>
         </Authenticated>
-        // Desktop Only
-        // <>
-        //     <div className="mx-auto max-w-screen hidden lg:block">
-        //         {/* START: Sidebar */}
-                
-        //         {/* END: Sidebar */}
-
-        //         {/* START: Content */}
-        //         <div className="ml-[300px] px-[50px]">
-        //             <div className="py-10 flex flex-col gap-[50px]">
-        //                 {/* Topbar */}
-                        
-        //                 {/* /Topbar */}
-
-        //                 {/* Featured */}
-                        
-        //                 {/* /Featured */}
-
-        //                 {/* Browse */}
-                        
-        //                 {/* /Continue Watching */}
-
-        //             </div>
-        //         </div>
-        //         {/* END: Content */}
-        //     </div>
-
-        //     <div className="mx-auto px-4 w-full h-screen lg:hidden flex bg-black">
-        //         <div className="text-white text-2xl text-center leading-snug font-medium my-auto">
-        //             Sorry, this page only supported on 1024px screen or above
-        //         </div>
-        //     </div>
-        // </>
     )
 }
