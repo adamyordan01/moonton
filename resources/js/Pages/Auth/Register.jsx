@@ -25,7 +25,7 @@ export default function Register() {
 
         setTimeout(() => {
             post(route('register'));
-        }, 2000);
+        }, 300);
     };
 
     return (
@@ -62,7 +62,7 @@ export default function Register() {
                                     placeholder="Your fullname..."
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
-                                    // required={true}
+                                    required={true}
                                 />
                                 <InputError message={errors.name} className="mt-2" />
                             </div>
@@ -78,7 +78,7 @@ export default function Register() {
                                     placeholder="Your Email Address"
                                     value={data.email}
                                     onChange={(e) => setData('email', e.target.value)}
-                                    // required={true}
+                                    required={true}
                                 />
                                 <InputError message={errors.email} className="mt-2" />
                             </div>
@@ -94,7 +94,7 @@ export default function Register() {
                                     placeholder="Your Password"
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
-                                    // required={true}
+                                    required={true}
                                 />
                                 <InputError message={errors.password} className="mt-2" />
                             </div>
@@ -110,7 +110,7 @@ export default function Register() {
                                     placeholder="Confirm Your Password"
                                     value={data.password_confirmation}
                                     onChange={(e) => setData('password_confirmation', e.target.value)}
-                                    // required={true}
+                                    required={true}
                                 />
                                 <InputError message={errors.password_confirmation} className="mt-2" />
                             </div>
@@ -133,16 +133,6 @@ export default function Register() {
                                     Sign In to My Account
                                 </span>
                             </Link>
-                            {/* <a href="sign_in.html" className="rounded-2xl border border-white py-[13px] text-center">
-                                <span className="text-base text-white">
-                                    Sign In to My Account
-                                </span>
-                            </a> */}
-                            {/* <button type="submit" className="rounded-2xl bg-alerange py-[13px] text-center">
-                                <span className="text-base font-semibold">
-                                    Sign Up
-                                </span>
-                            </button> */}
                         </div>
                     </form>
                 </div>

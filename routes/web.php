@@ -26,7 +26,6 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::redirect('/', '/prototype/login');
 
 Route::prefix('prototype')->name('prototype.')->group(function () {
     Route::get('/login', function () {
