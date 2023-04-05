@@ -31,7 +31,8 @@ export default function Dashboard({ auth, featuredMovies, movies }) {
             auth={auth}
         >
             <Head title="Dashboard">
-                <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+                {/* <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" /> */}
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/3.0.0/flickity.min.css" />
             </Head>
             <div>
                 <div className="font-semibold text-[22px] text-black mb-4">Featured Movies</div>
