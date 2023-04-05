@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 
 export default function FeaturedMovie({
     slug,
-    name,
+    title,
     category,
     thumbnail,
     rating,
@@ -17,7 +17,7 @@ export default function FeaturedMovie({
                 <div className="p-[30px] flex items-center gap-1">
                     <img src="/icons/ic_star.svg" alt="" />
                     <span className="text-sm font-medium text-white mt-1">
-                        {rating.toFixed(1)}/5.0
+                        {rating.toFixed(1)}/10.0
                     </span>
                 </div>
             </div>
@@ -26,7 +26,7 @@ export default function FeaturedMovie({
                     rounded-br-[28px] flex justify-between items-center px-7 h-[130px]">
                 <div>
                     <div className="font-medium text-[22px] text-white">
-                        {name}
+                        {title}
                     </div>
                     <p className="mb-0 text-white text-sm font-light">
                         {category}
@@ -38,7 +38,7 @@ export default function FeaturedMovie({
                 </div>
             </div>
             {/* <a href={slug} className="inset-0 absolute z-50"></a> */}
-            <Link href={route('prototype.movie.show', slug)} className="inset-0 absolute z-50" />
+            <Link href={route('user.movie.show', slug)} className="inset-0 absolute z-50" />
         </div>
     )
 }

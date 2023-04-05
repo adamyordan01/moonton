@@ -1,6 +1,28 @@
+import Input from "@/Components/Moonton/Input";
+import { useForm } from "@inertiajs/react";
+import { useEffect } from "react";
 
 
 export default function Register() {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+    });
+
+    useEffect(() => {
+        return () => {
+            reset('password', 'password_confirmation');
+        };
+    }, []);
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route('register'));
+    };
+
     return (
         <div className="mx-auto max-w-screen min-h-screen bg-black text-white md:px-10 px-3">
             <div className="fixed top-[-50px] hidden lg:block">
@@ -19,13 +41,16 @@ export default function Register() {
                             the better insight for your life
                         </p>
                     </div>
-                    <form className="w-[370px]">
+                    <form className="w-[370px]" onSubmit={submit}>
                         <div className="flex flex-col gap-6">
                             <div>
                                 <label className="text-base block mb-2">Full Name</label>
-                                <input type="text" name="fullname"
-                                    className="rounded-2xl bg-form-bg py-[13px] px-7 w-full focus:outline-alerange focus:outline-none"
-                                    placeholder="Your fullname..." value="Angga React" />
+                                <Input 
+                                    type="text"
+                                    name="name"
+                                    placeholder="Your fullname..."
+                                    value={data.name}
+                                />
                             </div>
                             <div>
                                 <label className="text-base block mb-2">Email Address</label>
