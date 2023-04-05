@@ -5,7 +5,7 @@ export default function SubscriptionCard({
     id,
     name,
     price,
-    durationInMonth,
+    duration,
     features,
     isPremium = true,
     onSelectSubscription
@@ -21,7 +21,7 @@ export default function SubscriptionCard({
                             <div className="text-[28px] font-bold">
                                 IDR {price.toLocaleString('id-ID')}
                             </div>
-                            <p className="text-gray-1 text-xs font-light">/{durationInMonth} months</p>
+                            <p className="text-[#777777] text-xs font-medium">/{duration} months</p>
                         </div>
 
                         {/* Mid Content: Benefits */}
@@ -64,7 +64,7 @@ export default function SubscriptionCard({
                             <div className="text-[28px] font-bold">
                                 IDR {price}
                             </div>
-                            <p className="text-[#767676] text-xs font-light">/{durationInMonth} months</p>
+                            <p className="text-[#cbcbcb] text-xs font-medium">/{duration} months</p>
                         </div>
 
                         {/* Mid Content: Benefits */}

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { FaSpinner } from 'react-icons/fa';
 
 export default function Button(
     { 
@@ -11,7 +11,18 @@ export default function Button(
             {...props}
             disabled={processing}
         >
-            {children}
+            {
+                processing ? (
+                    <span className='flex items-center justify-center'>
+                        <FaSpinner className='animate-spin mr-2' />
+                        Loading...
+                    </span>
+                ) : (
+                    <span className="">
+                        {children}
+                    </span>
+                )
+            }
         </button>
     )
 }
