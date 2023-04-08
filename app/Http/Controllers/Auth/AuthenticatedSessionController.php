@@ -34,6 +34,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // if user is admin, then redirect to admin dashboard
+        if (Auth::user()->hasRole('admin')) {
+            return redirect()->route('admin.movie.index');
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
