@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\MovieController;
+use App\Http\Controllers\Admin\MovieController as AdminMovieController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\SubscriptionPlanController;
 
@@ -62,6 +63,10 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('dashboard')->name(
 
     Route::get('/subscription-plan', [SubscriptionPlanController::class, 'index'])->name('subscription-plan')->middleware('checkUserSubscription:false');
     Route::post('/subscription-plan/{subscriptionPlan}/user-subscribe', [SubscriptionPlanController::class, 'userSubscribe'])->name('subscription-plan.user-subscribe')->middleware('checkUserSubscription:false');
+});
+
+Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('movie', AdminMovieController::class);
 });
 
 // Route::get('/dashboard', function () {

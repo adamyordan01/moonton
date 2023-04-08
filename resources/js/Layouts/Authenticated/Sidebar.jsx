@@ -5,7 +5,6 @@ import MenuItem from "@/Components/Moonton/MenuItem";
 
 
 export default function Sidebar ({ auth }) {
-    console.log(route().current());
     return (
         <aside className="fixed z-50 w-[300px] h-full">
             <div className="flex flex-col p-[30px] pr-0 border-r border-gray-[#F1F1F1] overflow-y-auto scroll- h-full">
