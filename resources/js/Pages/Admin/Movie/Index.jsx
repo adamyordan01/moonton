@@ -1,11 +1,24 @@
 import PrimaryButton from "@/Components/PrimaryButton";
 import FlashMessage from "@/Components/FlashMessage";
 import Authenticated from "@/Layouts/Authenticated/Index";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
+import { Inertia } from '@inertiajs/inertia'
 
 
 export default function Index({ auth, movies }) {
+
+    // delete movie using useForm
+    // const { delete: destroy, processing, progress } = useForm({ _method: 'DELETE' });
+    const deleteMovie = (id) => {
+        if (confirm('Are you sure?')) {
+            Inertia.delete(route('admin.movie.destroy', id), {
+                preserveScroll: true,
+                _method: 'DELETE',
+            })
+        }
+    }
+
     return (
         <Authenticated auth={auth}>
             <Head title="List of movie" />
@@ -64,7 +77,13 @@ export default function Index({ auth, movies }) {
                                                     <Link href={`/admin/movie/${movie.id}/edit`} className="text-indigo-600 hover:text-indigo-900 mr-2">
                                                         Edit
                                                     </Link>
-                                                    <button className="text-red-600 hover:text-red-900">Delete</button>
+                                                    {/* delete here */}
+                                                    <button 
+                                                        className="text-red-600 hover:text-red-900"
+                                                        onClick={() => deleteMovie(movie.id)}
+                                                    >
+                                                        Delete
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>

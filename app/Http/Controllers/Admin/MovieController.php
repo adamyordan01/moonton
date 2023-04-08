@@ -150,5 +150,15 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         
+        // delete the thumbnail
+        // Storage::disk('public')->delete('movie-thumbnails/' . $movie->thumbnail);
+        // delete the movie
+        $movie->delete();
+
+        return redirect()->route('admin.movie.index')
+            ->with('flash', [
+                'message' => 'Movie deleted successfully',
+                'type' => 'success',
+            ]);
     }
 }
