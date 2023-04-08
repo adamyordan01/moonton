@@ -3,29 +3,29 @@ import InputLabel from "@/Components/InputLabel"
 import TextInput from "@/Components/TextInput"
 import Authenticated from "@/Layouts/Authenticated/Index"
 import { Head, Link, useForm } from "@inertiajs/react"
+import { Inertia } from '@inertiajs/inertia'
 
 
-export default function Create({ auth }) {
+export default function Edit({ auth, movie }) {
     const { data, setData, post, processing, errors, progress } = useForm({
-        title: '',
-        category: '',
-        video_url: '',
-        thumbnail: '',
-        rating: '',
-        is_featured: false,
+        ...movie,
     })
 
     function handleSubmit(e) {
         e.preventDefault()
-        post(route('admin.movie.store'))
+        Inertia.post(route('admin.movie.update', movie.id), {
+            preserveScroll: true,
+            _method: 'PUT',
+            ...data,
+        })
     }
 
     return (
         <Authenticated auth={auth}>
-            <Head title="Insert new movie" />
+            <Head title="Update movie" />
             <div className="container mx-auto">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-3xl font-bold">Insert new movie</h1>
+                    <h1 className="text-3xl font-bold">Update movie - { movie.title }</h1>
                     <Link href={route('admin.movie.index')} className="text-blue-500 hover:text-blue-600">
                         Back
                     </Link>
@@ -76,6 +76,11 @@ export default function Create({ auth }) {
 
                                 <InputError message={errors.video_url} className="mt-2" />
                             </div>
+
+                            <div className="mb-5">
+                                <img src={`/storage/movie-thumbnails/${movie.thumbnail}`} alt={movie.thumbnail} className="w-24 rounded-md" />
+                            </div>
+
                             <div className="mb-5">
                                 <InputLabel htmlFor="thumbnail" value="Thumbnail" />
                                 <label htmlFor="thumbnail" className="sr-only">Choose file</label>
@@ -84,21 +89,12 @@ export default function Create({ auth }) {
                                     onChange={(e) => setData('thumbnail', e.target.files[0])}
                                     // required
                                 />
-                                
-                                {
-                                    progress && (
-                                        <div className="mt-2">
-                                            <div className="bg-gray-200 rounded-full overflow-hidden">
-                                                <div className="bg-blue-500 text-xs leading-none py-1 text-center text-white" style={{ width: progress.percentage + '%' }}>
-                                                    {progress.percentage}%
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                }
 
-
-
+                                {progress && (
+                                    <progress value={progress.percentage} max="100">
+                                        {progress.percentage}%
+                                    </progress>
+                                )}
                                 {/* {
                                     progress && (
                                         <div className="mt-2">
@@ -138,6 +134,7 @@ export default function Create({ auth }) {
                                         type="checkbox"
                                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                                         onChange={(e) => setData('is_featured', e.target.checked)}
+                                        checked={data.is_featured ?? false}
                                     />
                                 </div>
                             </div>

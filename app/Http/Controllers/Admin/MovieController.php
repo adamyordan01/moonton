@@ -23,7 +23,7 @@ class MovieController extends Controller
     public function index()
     {
         return inertia('Admin/Movie/Index', [
-            'movies' => Movie::all(),
+            'movies' => Movie::latest()->get(),
         ]);
     }
 
@@ -93,7 +93,9 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+        return inertia('Admin/Movie/Edit', [
+            'movie' => $movie,
+        ]);
     }
 
     /**
@@ -101,7 +103,45 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        // make sure the request is valid
+        $request->validate([
+            'title' => ['required', 'string', 'max:255', 'unique:movies,title,' . $movie->id],
+            'category' => ['required', 'string', 'max:255'],
+            'video_url' => ['required', 'url'],
+            'thumbnail' => ['nullable', 'image', 'max:2048', 'mimes:jpeg,png,jpg'],
+            'rating' => ['required', 'numeric', 'min:1', 'max:10'],
+            'is_featured' => ['required', 'boolean'],
+        ]);
+
+        // store the thumbnail
+        $thumbnail = $request->file('thumbnail');
+        // change the name of the thumbnail into a unique name
+        $filename = uniqid() . '.' . $thumbnail->getClientOriginalExtension();
+
+        // check if the thumbnail is not null insert new thumbnail and delete the old one
+        if ($thumbnail) {
+            // use the storage
+            Storage::disk('public')->putFileAs('movie-thumbnails', $thumbnail, $filename);
+            // delete the old thumbnail
+            Storage::disk('public')->delete('movie-thumbnails/' . $movie->thumbnail);
+        }
+
+        // store the movie
+        $movie->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title), // 'hello world' => 'hello-world
+            'category' => $request->category,
+            'video_url' => $request->video_url,
+            'thumbnail' => $thumbnail ? $filename : $movie->thumbnail,
+            'rating' => $request->rating,
+            'is_featured' => $request->is_featured,
+        ]);
+
+        return redirect()->route('admin.movie.index')
+            ->with('flash', [
+                'message' => 'Movie updated successfully',
+                'type' => 'success',
+            ]);
     }
 
     /**
@@ -109,6 +149,6 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        
     }
 }
